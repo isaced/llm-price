@@ -1,0 +1,15 @@
+{
+  "provider": "Groq",
+  "prices": [
+    {
+      "model": "llama-3-8b",
+      "oneMInputTokenPrice": 0.35,
+      "oneMOutputPrice": 0.7
+    },
+    {
+      "model": "llama-3-70b",
+      "oneMInputTokenPrice": 4.13,
+      "oneMOutputPrice": 5.53
+    }
+  ]
+}

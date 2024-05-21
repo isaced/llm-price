@@ -1,0 +1,30 @@
+{
+  "provider": "Aliyun",
+  "prices": [
+    {
+      "model": "qwen-long",
+      "oneMInputTokenPrice": 0.5,
+      "oneMOutputPrice": 2
+    },
+    {
+      "model": "qwen-turbo",
+      "oneMInputTokenPrice": 2,
+      "oneMOutputPrice": 6
+    },
+    {
+      "model": "qwen-plus",
+      "oneMInputTokenPrice": 3.5,
+      "oneMOutputPrice": 10.5
+    },
+    {
+      "model": "qwen-max",
+      "oneMInputTokenPrice": 3.5,
+      "oneMOutputPrice": 10.5
+    },
+    {
+      "model": "qwen1.5-110b-chat",
+      "oneMInputTokenPrice": 7,
+      "oneMOutputPrice": 14
+    }
+  ]
+}
