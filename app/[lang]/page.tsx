@@ -8,9 +8,9 @@ import Image from "next/image";
 async function getData(): Promise<ModelInfo[]> {
   const list: ModelInfo[] = []
 
-  const files = fs.readdirSync('data')
+  const files = fs.readdirSync(process.cwd() + '/data')
   for (const file of files) {
-    const data = fs.readFileSync(`data/${file}`).toString()
+    const data = fs.readFileSync(process.cwd() + `/data/${file}`).toString()
     const providerData = JSON.parse(data) as {
       provider: string,
       currency: 'USD' | 'CNY',
