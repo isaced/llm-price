@@ -1,0 +1,21 @@
+{
+  "provider": "Anthropic",
+  "currency": "USD",
+  "prices": [
+    {
+      "model": "Claude 3 Haiku",
+      "oneMInputTokenPrice": 0.25,
+      "oneMOutputPrice": 1.25
+    },
+    {
+      "model": "Claude 3 Sonnet",
+      "oneMInputTokenPrice": 3,
+      "oneMOutputPrice": 15
+    },
+    {
+      "model": "Claude 3 Opus",
+      "oneMInputTokenPrice": 15,
+      "oneMOutputPrice": 75
+    }
+  ]
+}

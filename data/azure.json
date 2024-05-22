@@ -1,0 +1,21 @@
+{
+  "provider": "Azure",
+  "currency": "USD",
+  "prices": [
+    {
+      "model": "GPT-3.5-Turbo-0125",
+      "oneMInputTokenPrice": 0.5,
+      "oneMOutputPrice": 1.5
+    },
+    {
+      "model": "GPT-4 (8K)",
+      "oneMInputTokenPrice": 30,
+      "oneMOutputPrice": 60
+    },
+    {
+      "model": "GPT-4 (32K)",
+      "oneMInputTokenPrice": 60.00,
+      "oneMOutputPrice": 120
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "provider": "Google",
+  "currency": "USD",
+  "prices": [
+    {
+      "model": "Gemini 1.5 Flash",
+      "oneMInputTokenPrice": 0.125,
+      "oneMOutputPrice": 0.25
+    },
+    {
+      "model": "Gemini 1.5 Pro",
+      "oneMInputTokenPrice": 1.25,
+      "oneMOutputPrice": 2.5
+    },
+    {
+      "model": "Gemini 1.0 Pro",
+      "oneMInputTokenPrice": 0.125,
+      "oneMOutputPrice": 0.375
+    }
+  ]
+}
