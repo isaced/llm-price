@@ -1,0 +1,16 @@
+{
+  "provider": "Baidu",
+  "currency": "CNY",
+  "prices": [
+    {
+      "model": "ERNIE 4.0",
+      "oneMInputTokenPrice": 120,
+      "oneMOutputPrice": 120
+    },
+    {
+      "model": "ERNIE 3.5",
+      "oneMInputTokenPrice": 12,
+      "oneMOutputPrice": 12
+    }
+  ]
+}

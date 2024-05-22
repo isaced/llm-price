@@ -1,0 +1,21 @@
+{
+  "provider": "Moonshot",
+  "currency": "CNY",
+  "prices": [
+    {
+      "model": "moonshot-v1-8k",
+      "oneMInputTokenPrice": 12,
+      "oneMOutputPrice": 0
+    },
+    {
+      "model": "moonshot-v1-32k",
+      "oneMInputTokenPrice": 24,
+      "oneMOutputPrice": 0
+    },
+    {
+      "model": "moonshot-v1-128k",
+      "oneMInputTokenPrice": 60,
+      "oneMOutputPrice": 0
+    }
+  ]
+}

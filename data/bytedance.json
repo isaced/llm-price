@@ -1,0 +1,36 @@
+{
+  "provider": "ByteDance",
+  "currency": "CNY",
+  "prices": [
+    {
+      "model": "Doubao-lite-4k",
+      "oneMInputTokenPrice": 0.3,
+      "oneMOutputPrice": 0.6
+    },
+    {
+      "model": "Doubao-lite-32k",
+      "oneMInputTokenPrice": 0.3,
+      "oneMOutputPrice": 0.6
+    },
+    {
+      "model": "Doubao-lite-128k",
+      "oneMInputTokenPrice": 0.8,
+      "oneMOutputPrice": 1
+    },
+    {
+      "model": "Doubao-pro-4k",
+      "oneMInputTokenPrice": 0.8,
+      "oneMOutputPrice": 2
+    },
+    {
+      "model": "Doubao-pro-32k",
+      "oneMInputTokenPrice": 0.8,
+      "oneMOutputPrice": 2
+    },
+    {
+      "model": "Doubao-pro-128k",
+      "oneMInputTokenPrice": 5,
+      "oneMOutputPrice": 9
+    }
+  ]
+}

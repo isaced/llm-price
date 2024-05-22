@@ -1,0 +1,11 @@
+{
+  "provider": "DeepSeek",
+  "currency": "CNY",
+  "prices": [
+    {
+      "model": "DeepSeek-V2",
+      "oneMInputTokenPrice": 1,
+      "oneMOutputPrice": 2
+    }
+  ]
+}
