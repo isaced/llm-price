@@ -1,5 +1,6 @@
 {
   "provider": "Aliyun",
+  "currency": "CNY",
   "prices": [
     {
       "model": "qwen-long",

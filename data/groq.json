@@ -1,15 +1,26 @@
 {
   "provider": "Groq",
+  "currency": "USD",
   "prices": [
     {
       "model": "llama-3-8b",
-      "oneMInputTokenPrice": 0.35,
-      "oneMOutputPrice": 0.7
+      "oneMInputTokenPrice": 0.05,
+      "oneMOutputPrice": 0.10
     },
     {
       "model": "llama-3-70b",
-      "oneMInputTokenPrice": 4.13,
-      "oneMOutputPrice": 5.53
+      "oneMInputTokenPrice": 0.59,
+      "oneMOutputPrice": 0.79
+    },
+    {
+      "model": "Gemma-7b-It",
+      "oneMInputTokenPrice": 0.10,
+      "oneMOutputPrice": 0.10
+    },
+    {
+      "model": "Mixtral-8x7b-32768",
+      "oneMInputTokenPrice": 0.24,
+      "oneMOutputPrice": 0.24
     }
   ]
 }

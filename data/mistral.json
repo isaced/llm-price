@@ -1,0 +1,41 @@
+{
+  "provider": "Mistral",
+  "currency": "USD",
+  "prices": [
+    {
+      "model": "open-mistral-7b",
+      "oneMInputTokenPrice": 0.25,
+      "oneMOutputPrice": 0.25
+    },
+    {
+      "model": "open-mixtral-8x7b",
+      "oneMInputTokenPrice": 0.7,
+      "oneMOutputPrice": 0.7
+    },
+    {
+      "model": "open-mixtral-8x22b",
+      "oneMInputTokenPrice": 2,
+      "oneMOutputPrice": 6
+    },
+    {
+      "model": "mistral-small",
+      "oneMInputTokenPrice": 1,
+      "oneMOutputPrice": 3
+    },
+    {
+      "model": "mistral-medium",
+      "oneMInputTokenPrice": 2.7,
+      "oneMOutputPrice": 8.1
+    },
+    {
+      "model": "mistral-large",
+      "oneMInputTokenPrice": 4,
+      "oneMOutputPrice": 12
+    },
+    {
+      "model": "mistral-embed",
+      "oneMInputTokenPrice": 0.1,
+      "oneMOutputPrice": 0.1
+    }
+  ]
+}

@@ -1,22 +1,31 @@
 {
   "provider": "OpenAI",
+  "currency": "USD",
   "prices": [
     {
       "model": "gpt-4o",
-      "oneMInputTokenPrice": 35,
-      "oneMOutputPrice": 105
+      "oneMInputTokenPrice": 5,
+      "oneMOutputPrice": 15
     },
     {
       "model": "gpt-4-turbo",
-      "provider": "OpenAI",
-      "oneMInputTokenPrice": 35,
-      "oneMOutputPrice": 105
+      "oneMInputTokenPrice": 10,
+      "oneMOutputPrice": 30
+    },
+    {
+      "model": "gpt-4",
+      "oneMInputTokenPrice": 30,
+      "oneMOutputPrice": 60
     },
     {
       "model": "gpt-3.5-turbo-0125",
-      "provider": "OpenAI",
-      "oneMInputTokenPrice": 3.5,
-      "oneMOutputPrice": 10.5
+      "oneMInputTokenPrice": 0.5,
+      "oneMOutputPrice": 1.5
+    },
+    {
+      "model": "gpt-3.5-turbo-instruct",
+      "oneMInputTokenPrice": 1.5,
+      "oneMOutputPrice": 2
     }
   ]
 }
