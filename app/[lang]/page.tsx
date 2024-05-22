@@ -28,7 +28,6 @@ async function getData(): Promise<ModelInfo[]> {
       currency: providerData.currency,
     })))
   }
-  console.log(list)
   return list
 }
 
