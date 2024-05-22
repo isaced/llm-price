@@ -1,5 +1,4 @@
-import { ModelInfo, columns } from "./table/columns"
-import { DataTable } from "./table/data-table"
+import { DataTable, ModelInfo } from "./table/data-table"
 import fs from 'fs'
 import Image from "next/image";
 
@@ -24,17 +23,25 @@ async function getData(): Promise<ModelInfo[]> {
     list.push(...providerData.prices.map(item => ({
       provider: providerData.provider,
       ...item,
-      oneMInputTokenPrice: providerData.currency === 'USD' ? item.oneMInputTokenPrice * 7 : item.oneMInputTokenPrice,
-      oneMOutputPrice: providerData.currency === 'USD' ? item.oneMOutputPrice * 7 : item.oneMOutputPrice,
+      oneMInputTokenPrice: item.oneMInputTokenPrice,
+      oneMOutputPrice: item.oneMOutputPrice,
+      currency: providerData.currency,
     })))
   }
   console.log(list)
   return list
 }
 
-export default async function Home() {
+export default async function Home({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
 
   const data = await getData()
+  const currency = searchParams?.currency as string | undefined
 
   return (
     <main className="min-h-screen p-4 md:p-24 space-y-10" >
@@ -43,10 +50,10 @@ export default async function Home() {
           LLM Price
         </div>
         <div>
-          Open source project to collect and display the price of LLM model.
+          A open source project to collect and display the price of LLM model.
         </div>
       </div>
-      <DataTable columns={columns} data={data} />
+      <DataTable data={data} defaultCurrency={currency} />
       <footer>
         <div className="flex">
           <div>
