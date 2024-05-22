@@ -53,7 +53,7 @@ export function DataTable<TData>({
   const router = useRouter();
   const [currency, setCurrency] = useCurrencyStorage(defaultCurrency)
 
-  const columns: ColumnDef<TData>[] = [
+  const columns: ColumnDef<ModelInfo, any>[] = [
     {
       accessorKey: "model",
       header: "MODEL NAME",
@@ -114,7 +114,7 @@ export function DataTable<TData>({
 
   const table = useReactTable({
     data,
-    columns,
+    columns: columns as ColumnDef<TData, any>[],
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
