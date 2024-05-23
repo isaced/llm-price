@@ -780,5 +780,5 @@ export function convertCurrency(amount: number, from: string, to: string): numbe
   if (to === "USD") {
     return amount / data.data[from].value;
   }
-  return amount * data.data[from].value / data.data[to].value;
+  return amount * data.data[from].value * data.data[to].value;
 }
