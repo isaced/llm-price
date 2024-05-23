@@ -24,9 +24,10 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCurrencyStorage } from "@/lib/hooks"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Plus } from "lucide-react"
 import { useRouter } from 'next/navigation'
 import { convertCurrency, getCurrencyList } from "@/lib/currency"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export type ModelInfo = {
   model: string
@@ -112,6 +113,34 @@ export function DataTable<TData>({
         return <div className="font-medium ml-4">{formatted}</div>
       },
     },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => {
+                  const url = `https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=update-model-price.yaml&title=Update+model+price&model-name=${row.original.model}`;
+                  window.open(url, "_blank");
+                }}
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View provider</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )
+      },
+    }
   ]
 
   const table = useReactTable({
@@ -130,33 +159,43 @@ export function DataTable<TData>({
 
   return (
     <div>
-      <div className="flex justify-between py-4">
-        <Input
-          placeholder={i18n.FILTER_MODELS}
-          value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => {
-            table.getColumn("model")?.setFilterValue(event.target.value)
-          }}
-          className="max-w-sm"
-        />
-        <Select value={currency} onValueChange={(value) => {
-          setCurrency(value);
+      <div className="flex justify-between py-4 space-x-2">
+        <div className="flex space-x-2">
+          <Input
+            placeholder={i18n.FILTER_MODELS}
+            value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => {
+              table.getColumn("model")?.setFilterValue(event.target.value)
+            }}
+            className="max-w-sm"
+          />
+          <Select value={currency} onValueChange={(value) => {
+            setCurrency(value);
 
-          const url = new URL(window.location.href);
-          url.searchParams.set('currency', value);
-          router.push(url.toString());
-        }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Currency (USD)" />
-          </SelectTrigger>
-          <SelectContent>
-            {
-              getCurrencyList().map((currency) => (
-                <SelectItem key={currency} value={currency}>{currency}</SelectItem>
-              ))
-            }
-          </SelectContent>
-        </Select>
+            const url = new URL(window.location.href);
+            url.searchParams.set('currency', value);
+            router.push(url.toString());
+          }}>
+            <SelectTrigger className="w-[100px]">
+              <SelectValue placeholder="Currency (USD)" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                getCurrencyList().map((currency) => (
+                  <SelectItem key={currency} value={currency}>{currency}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex space-x-2">
+          <a target="_blank" href="https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=add-model-price.yaml&title=Add+model+price">
+            <Button>
+              <Plus className="h-4 w-4" />
+            </Button>
+          </a>
+        </div>
       </div>
 
       <div className="rounded-md border">
