@@ -28,6 +28,7 @@ import { ArrowUpDown, MoreHorizontal, Plus } from "lucide-react"
 import { useRouter } from 'next/navigation'
 import { convertCurrency, getCurrencyList } from "@/lib/currency"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 export type ModelInfo = {
   model: string
@@ -190,11 +191,23 @@ export function DataTable<TData>({
         </div>
 
         <div className="flex space-x-2">
-          <a target="_blank" href="https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=add-model-price.yaml&title=Add+model+price">
-            <Button>
-              <Plus className="h-4 w-4" />
-            </Button>
-          </a>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <a target="_blank" href="https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=add-model-price.yaml&title=Add+model+price">
+                  <Button>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  Submit a issue to add a new model price.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
         </div>
       </div>
 
