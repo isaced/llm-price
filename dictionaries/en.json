@@ -1,0 +1,9 @@
+{
+  "title": "LLM Price",
+  "description": "A open source project to collect and display the price of LLM model.",
+  "MODEL_NAME": "MODEL NAME",
+  "PROVIDER": "PROVIDER",
+  "1 M INPUT TOKENS": "1 M INPUT TOKENS",
+  "1 M OUTPUT TOKENS": "1 M OUTPUT TOKENS",
+  "FILTER_MODELS": "Filter models..."
+}

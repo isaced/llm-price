@@ -39,11 +39,13 @@ export type ModelInfo = {
 interface DataTableProps<TData> {
   data: TData[];
   defaultCurrency: string | undefined;
+  i18n: Record<string, string>;
 }
 
 export function DataTable<TData>({
   data,
   defaultCurrency,
+  i18n
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -56,11 +58,11 @@ export function DataTable<TData>({
   const columns: ColumnDef<ModelInfo, any>[] = [
     {
       accessorKey: "model",
-      header: "MODEL NAME",
+      header: i18n.MODEL_NAME,
     },
     {
       accessorKey: "provider",
-      header: "PROVIDER",
+      header: i18n.PROVIDER,
     },
     {
       accessorKey: "oneMInputTokenPrice",
@@ -70,7 +72,7 @@ export function DataTable<TData>({
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            1 M INPUT TOKENS
+            {i18n["1 M INPUT TOKENS"]}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
@@ -94,7 +96,7 @@ export function DataTable<TData>({
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            1 M OUTPUT TOKENS
+            {i18n["1 M OUTPUT TOKENS"]}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
@@ -130,7 +132,7 @@ export function DataTable<TData>({
     <div>
       <div className="flex justify-between py-4">
         <Input
-          placeholder="Filter models..."
+          placeholder={i18n.FILTER_MODELS}
           value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
           onChange={(event) => {
             table.getColumn("model")?.setFilterValue(event.target.value)

@@ -1,6 +1,9 @@
+import LanguageSwitch from "@/components/language-switch";
 import { DataTable, ModelInfo } from "./table/data-table"
 import fs from 'fs'
 import Image from "next/image";
+import { getDictionary } from './dictionaries'
+
 
 /**
  * load data from ../data/*.json
@@ -35,26 +38,27 @@ export default async function Home({
   params,
   searchParams,
 }: {
-  params: { slug: string };
+  params: { slug: string, lang: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
 
   const data = await getData()
   const currency = searchParams?.currency as string | undefined
+  const i18n = await getDictionary(params.lang || 'en');
 
   return (
     <main className="min-h-screen p-4 md:p-24 space-y-10" >
       <div className="space-y-4">
         <div className="text-4xl font-bold">
-          LLM Price
+          {i18n.title}
         </div>
         <div>
-          A open source project to collect and display the price of LLM model.
+          {i18n.description}
         </div>
       </div>
-      <DataTable data={data} defaultCurrency={currency} />
+      <DataTable data={data} defaultCurrency={currency} i18n={i18n} />
       <footer>
-        <div className="flex">
+        <div className="flex justify-between items-center">
           <div>
             <a href="https://github.com/isaced/llm-price" target="_blank" className="inline text-blue-500">
               <Image
@@ -66,6 +70,8 @@ export default async function Home({
               />
             </a>
           </div>
+
+          <LanguageSwitch defaultLang={params.lang} />
         </div>
       </footer>
     </main>

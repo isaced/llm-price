@@ -1,0 +1,9 @@
+{
+  "title": "LLM Price",
+  "description": "一个开源项目用于收集和展示LLM模型的价格。",
+  "MODEL_NAME": "模型",
+  "PROVIDER": "供应商",
+  "1 M INPUT TOKENS": "百万输入 Tokens 价格",
+  "1 M OUTPUT TOKENS": "百万输出 Tokens 价格",
+  "FILTER_MODELS": "筛选模型..."
+}
