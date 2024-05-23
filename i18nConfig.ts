@@ -1,6 +1,6 @@
 const i18nConfig = {
   locales: ["en", "zh"],
-  defaultLocale: "zh",
+  defaultLocale: "en",
   localeNames: {
     en: "English",
     zh: "简体中文",
