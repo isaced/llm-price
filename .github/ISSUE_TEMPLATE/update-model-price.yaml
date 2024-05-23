@@ -1,6 +1,6 @@
-name: Add model price
-description: Add a new model or provider.
-title: "Add model price"
+name: Update model price
+description: Update a model or provider information
+title: "Update model price"
 body:
   - type: input
     id: model-name
