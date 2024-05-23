@@ -1,0 +1,25 @@
+name: Add model price
+description: Add a new model or provider.
+title: "Add model price"
+body:
+  - type: input
+    id: model-name
+    attributes:
+      label: Model Name
+      placeholder: GPT-3.5 Turbo
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Model price or other info.
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: https://...
+    validations:
+      required: true
