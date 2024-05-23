@@ -3,27 +3,27 @@
   "currency": "USD",
   "prices": [
     {
-      "model": "gpt-4o",
+      "model": "GPT-4o",
       "oneMInputTokenPrice": 5,
       "oneMOutputPrice": 15
     },
     {
-      "model": "gpt-4-turbo",
+      "model": "GPT-4-Turbo",
       "oneMInputTokenPrice": 10,
       "oneMOutputPrice": 30
     },
     {
-      "model": "gpt-4",
+      "model": "GPT-4",
       "oneMInputTokenPrice": 30,
       "oneMOutputPrice": 60
     },
     {
-      "model": "gpt-3.5-turbo-0125",
+      "model": "GPT-3.5-turbo-0125",
       "oneMInputTokenPrice": 0.5,
       "oneMOutputPrice": 1.5
     },
     {
-      "model": "gpt-3.5-turbo-instruct",
+      "model": "GPT-3.5-Turbo-Instruct",
       "oneMInputTokenPrice": 1.5,
       "oneMOutputPrice": 2
     }

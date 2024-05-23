@@ -5,5 +5,6 @@
   "PROVIDER": "PROVIDER",
   "1 M INPUT TOKENS": "1 M INPUT TOKENS",
   "1 M OUTPUT TOKENS": "1 M OUTPUT TOKENS",
-  "FILTER_MODELS": "Filter models..."
+  "FILTER_MODELS": "Filter models...",
+  "ADD_MODEL_PRICE_TIPS": "Submit a issue to add a new model price"
 }

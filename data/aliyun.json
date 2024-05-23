@@ -3,27 +3,27 @@
   "currency": "CNY",
   "prices": [
     {
-      "model": "qwen-long",
+      "model": "Qwen-Long",
       "oneMInputTokenPrice": 0.5,
       "oneMOutputPrice": 2
     },
     {
-      "model": "qwen-turbo",
+      "model": "Qwen-Turbo",
       "oneMInputTokenPrice": 2,
       "oneMOutputPrice": 6
     },
     {
-      "model": "qwen-plus",
+      "model": "Qwen-Plus",
       "oneMInputTokenPrice": 3.5,
       "oneMOutputPrice": 10.5
     },
     {
-      "model": "qwen-max",
+      "model": "Qwen-Max",
       "oneMInputTokenPrice": 3.5,
       "oneMOutputPrice": 10.5
     },
     {
-      "model": "qwen1.5-110b-chat",
+      "model": "Qwen1.5-110B-Chat",
       "oneMInputTokenPrice": 7,
       "oneMOutputPrice": 14
     }

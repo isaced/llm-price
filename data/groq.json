@@ -3,12 +3,12 @@
   "currency": "USD",
   "prices": [
     {
-      "model": "llama-3-8b",
+      "model": "Llama-3 (8B)",
       "oneMInputTokenPrice": 0.05,
       "oneMOutputPrice": 0.10
     },
     {
-      "model": "llama-3-70b",
+      "model": "Llama-3 (70B)",
       "oneMInputTokenPrice": 0.59,
       "oneMOutputPrice": 0.79
     },

@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCurrencyStorage } from "@/lib/hooks"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal, Plus } from "lucide-react"
+import { ArrowUpDown, ExternalLink, MoreHorizontal, Plus } from "lucide-react"
 import { useRouter } from 'next/navigation'
 import { convertCurrency, getCurrencyList } from "@/lib/currency"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -65,6 +65,11 @@ export function DataTable<TData>({
     {
       accessorKey: "provider",
       header: i18n.PROVIDER,
+      cell: ({ row }) => {
+        return <div>
+          {(i18n.providers as unknown as Record<string, string>)?.[row.original.provider] || row.original.provider}
+        </div>
+      }
     },
     {
       accessorKey: "oneMInputTokenPrice",
@@ -133,10 +138,13 @@ export function DataTable<TData>({
                   window.open(url, "_blank");
                 }}
               >
-                Edit
+                {i18n.Edit || "Edit"}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View provider</DropdownMenuItem>
+              <DropdownMenuItem>
+                {i18n['View provider'] || 'View provider'}
+                <ExternalLink href={`https://www.google.com/search?q=${row.original.model}`} className="ml-2 h-4 w-4" />
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )
@@ -202,7 +210,7 @@ export function DataTable<TData>({
               </TooltipTrigger>
               <TooltipContent>
                 <p>
-                  Submit a issue to add a new model price.
+                  {i18n.ADD_MODEL_PRICE_TIPS}
                 </p>
               </TooltipContent>
             </Tooltip>
