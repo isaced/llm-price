@@ -1,0 +1,16 @@
+{
+  "provider": "Zhipu AI",
+  "currency": "CNY",
+  "prices": [
+    {
+      "model": "GLM-4",
+      "oneMInputTokenPrice": 50,
+      "oneMOutputPrice": 50
+    },
+    {
+      "model": "GLM-4-Air",
+      "oneMInputTokenPrice": 0.5,
+      "oneMOutputPrice": 0.5
+    }
+  ]
+}
