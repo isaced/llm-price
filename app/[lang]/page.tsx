@@ -23,13 +23,19 @@ async function getData(): Promise<ModelInfo[]> {
         oneMOutputPrice: number
       }[]
     }
-    list.push(...providerData.prices.map(item => ({
-      provider: providerData.provider,
-      ...item,
-      oneMInputTokenPrice: item.oneMInputTokenPrice,
-      oneMOutputPrice: item.oneMOutputPrice,
-      currency: providerData.currency,
-    })))
+    list.push(
+      ...providerData.prices.map((item) => ({
+        provider: providerData.provider,
+        ...item,
+        blendPrice:
+          item.oneMInputTokenPrice === 0 || item.oneMOutputPrice === 0
+            ? item.oneMInputTokenPrice + item.oneMOutputPrice
+            : (item.oneMInputTokenPrice * 3 + item.oneMOutputPrice * 1) / 4,
+        oneMInputTokenPrice: item.oneMInputTokenPrice,
+        oneMOutputPrice: item.oneMOutputPrice,
+        currency: providerData.currency,
+      }))
+    );
   }
   return list
 }

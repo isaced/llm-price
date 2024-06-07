@@ -4,13 +4,13 @@
   "prices": [
     {
       "model": "GLM-4",
-      "oneMInputTokenPrice": 50,
-      "oneMOutputPrice": 50
+      "oneMInputTokenPrice": 100,
+      "oneMOutputPrice": 0
     },
     {
       "model": "GLM-4-Air",
-      "oneMInputTokenPrice": 0.5,
-      "oneMOutputPrice": 0.5
+      "oneMInputTokenPrice": 1,
+      "oneMOutputPrice": 0
     }
   ]
 }

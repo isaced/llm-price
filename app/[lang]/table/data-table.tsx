@@ -66,57 +66,74 @@ export function DataTable<TData>({
       accessorKey: "provider",
       header: i18n.PROVIDER,
       cell: ({ row }) => {
-        return <div>
-          {(i18n.providers as unknown as Record<string, string>)?.[row.original.provider] || row.original.provider}
-        </div>
-      }
+        return (
+          <div>
+            {(i18n.providers as unknown as Record<string, string>)?.[row.original.provider] || row.original.provider}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "blendPrice",
+      header: ({ column }) => {
+        return (
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+            {i18n["1 M BLEND PRICE"]}(in*3 + out*1)
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const sourceCurrency = row.original.currency as string;
+        const price = parseFloat(row.getValue("blendPrice"));
+        const localPrice = convertCurrency(price, sourceCurrency, currency!);
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: currency,
+        }).format(localPrice);
+        return <div className="font-medium ml-4">{formatted}</div>;
+      },
     },
     {
       accessorKey: "oneMInputTokenPrice",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             {i18n["1 M INPUT TOKENS"]}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
-        )
+        );
       },
       cell: ({ row }) => {
-        const sourceCurrency = row.original.currency as string
-        const price = parseFloat(row.getValue("oneMInputTokenPrice"))
-        const localPrice = convertCurrency(price, sourceCurrency, currency!)
+        const sourceCurrency = row.original.currency as string;
+        const price = parseFloat(row.getValue("oneMInputTokenPrice"));
+        const localPrice = convertCurrency(price, sourceCurrency, currency!);
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: currency,
-        }).format(localPrice)
-        return <div className="font-medium ml-4">{formatted}</div>
+        }).format(localPrice);
+        return <div className="font-medium ml-4">{formatted}</div>;
       },
     },
     {
       accessorKey: "oneMOutputPrice",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             {i18n["1 M OUTPUT TOKENS"]}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
-        )
+        );
       },
       cell: ({ row }) => {
-        const sourceCurrency = row.original.currency as string
-        const price = parseFloat(row.getValue("oneMOutputPrice"))
-        const localPrice = convertCurrency(price, sourceCurrency, currency!)
+        const sourceCurrency = row.original.currency as string;
+        const price = parseFloat(row.getValue("oneMOutputPrice"));
+        const localPrice = convertCurrency(price, sourceCurrency, currency!);
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: currency,
-        }).format(localPrice)
-        return <div className="font-medium ml-4">{formatted}</div>
+        }).format(localPrice);
+        return <div className="font-medium ml-4">{formatted}</div>;
       },
     },
     {
@@ -142,15 +159,15 @@ export function DataTable<TData>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                {i18n['View provider'] || 'View provider'}
+                {i18n["View provider"] || "View provider"}
                 <ExternalLink href={`https://www.google.com/search?q=${row.original.model}`} className="ml-2 h-4 w-4" />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        )
+        );
       },
-    }
-  ]
+    },
+  ];
 
   const table = useReactTable({
     data,
