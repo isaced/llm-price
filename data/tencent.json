@@ -3,14 +3,19 @@
   "currency": "CNY",
   "prices": [
     {
-      "model": "ERNIE 4.0",
-      "oneMInputTokenPrice": 120,
-      "oneMOutputPrice": 120
+      "model": "hunyuan-pro",
+      "oneMInputTokenPrice": 30,
+      "oneMOutputPrice": 10
     },
     {
-      "model": "ERNIE 3.5",
-      "oneMInputTokenPrice": 12,
-      "oneMOutputPrice": 12
+      "model": "hunyuan-standard",
+      "oneMInputTokenPrice": 4.5,
+      "oneMOutputPrice": 5
+    },
+    {
+      "model": "hunyuan-standard-256k",
+      "oneMInputTokenPrice": 15,
+      "oneMOutputPrice": 60
     }
   ]
 }
