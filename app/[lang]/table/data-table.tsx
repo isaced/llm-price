@@ -3,59 +3,65 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React from "react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useCurrencyStorage } from "@/lib/hooks";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, ExternalLink, MoreHorizontal, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { convertCurrency, getCurrencyList } from "@/lib/currency";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import React from "react"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useCurrencyStorage } from "@/lib/hooks"
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown, ExternalLink, MoreHorizontal, Plus } from "lucide-react"
-import { useRouter } from 'next/navigation'
-import { convertCurrency, getCurrencyList } from "@/lib/currency"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export type ModelInfo = {
-  model: string
-  provider: string
-  oneMInputTokenPrice: number
-  oneMOutputPrice: number
-  currency: string
-}
+  model: string;
+  provider: string;
+  oneMInputTokenPrice: number;
+  oneMOutputPrice: number;
+  currency: string;
+  blendPrice: number;
+};
 
-interface DataTableProps<TData> {
-  data: TData[];
+interface DataTableProps {
+  data: ModelInfo[];
   defaultCurrency: string | undefined;
   i18n: Record<string, string>;
 }
 
-export function DataTable<TData>({
-  data,
-  defaultCurrency,
-  i18n
-}: DataTableProps<TData>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
+export function DataTable({ data, defaultCurrency, i18n }: DataTableProps) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const router = useRouter();
-  const [currency, setCurrency] = useCurrencyStorage(defaultCurrency)
+  const [currency, setCurrency] = useCurrencyStorage(defaultCurrency);
+
+  const sortingFn = (a: Row<ModelInfo>, b: Row<ModelInfo>, fields: string) => {
+    const getLocalPrice = (row: Row<ModelInfo>) => {
+      const sourceCurrency = row.original.currency as string;
+      const price = parseFloat(row.getValue(fields));
+      const localPrice = convertCurrency(price, sourceCurrency, currency!);
+      return localPrice;
+    };
+    return getLocalPrice(a) - getLocalPrice(b);
+  };
 
   const columns: ColumnDef<ModelInfo, any>[] = [
     {
@@ -84,15 +90,13 @@ export function DataTable<TData>({
         );
       },
       cell: ({ row }) => {
-        const sourceCurrency = row.original.currency as string;
-        const price = parseFloat(row.getValue("blendPrice"));
-        const localPrice = convertCurrency(price, sourceCurrency, currency!);
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: currency,
-        }).format(localPrice);
+        }).format(convertCurrency(row.original.blendPrice, row.original.currency, currency!));
         return <div className="font-medium ml-4">{formatted}</div>;
       },
+      sortingFn: (a, b) => sortingFn(a, b, "blendPrice"),
     },
     {
       accessorKey: "oneMInputTokenPrice",
@@ -105,15 +109,13 @@ export function DataTable<TData>({
         );
       },
       cell: ({ row }) => {
-        const sourceCurrency = row.original.currency as string;
-        const price = parseFloat(row.getValue("oneMInputTokenPrice"));
-        const localPrice = convertCurrency(price, sourceCurrency, currency!);
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: currency,
-        }).format(localPrice);
+        }).format(row.original.oneMInputTokenPrice);
         return <div className="font-medium ml-4">{formatted}</div>;
       },
+      sortingFn: (a, b) => sortingFn(a, b, "oneMInputTokenPrice"),
     },
     {
       accessorKey: "oneMOutputPrice",
@@ -126,15 +128,13 @@ export function DataTable<TData>({
         );
       },
       cell: ({ row }) => {
-        const sourceCurrency = row.original.currency as string;
-        const price = parseFloat(row.getValue("oneMOutputPrice"));
-        const localPrice = convertCurrency(price, sourceCurrency, currency!);
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: currency,
-        }).format(localPrice);
+        }).format(row.original.oneMOutputPrice);
         return <div className="font-medium ml-4">{formatted}</div>;
       },
+      sortingFn: (a, b) => sortingFn(a, b, "oneMOutputPrice"),
     },
     {
       id: "actions",
@@ -171,7 +171,7 @@ export function DataTable<TData>({
 
   const table = useReactTable({
     data,
-    columns: columns as ColumnDef<TData, any>[],
+    columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -181,7 +181,15 @@ export function DataTable<TData>({
       sorting,
       columnFilters,
     },
-  })
+    initialState: {
+      sorting: [
+        {
+          id: "blendPrice",
+          desc: false,
+        },
+      ],
+    },
+  });
 
   return (
     <div>
@@ -191,26 +199,29 @@ export function DataTable<TData>({
             placeholder={i18n.FILTER_MODELS}
             value={(table.getColumn("model")?.getFilterValue() as string) ?? ""}
             onChange={(event) => {
-              table.getColumn("model")?.setFilterValue(event.target.value)
+              table.getColumn("model")?.setFilterValue(event.target.value);
             }}
             className="max-w-sm"
           />
-          <Select value={currency} onValueChange={(value) => {
-            setCurrency(value);
+          <Select
+            value={currency}
+            onValueChange={(value) => {
+              setCurrency(value);
 
-            const url = new URL(window.location.href);
-            url.searchParams.set('currency', value);
-            router.push(url.toString());
-          }}>
+              const url = new URL(window.location.href);
+              url.searchParams.set("currency", value);
+              router.push(url.toString());
+            }}
+          >
             <SelectTrigger className="w-[100px]">
               <SelectValue placeholder="Currency (USD)" />
             </SelectTrigger>
             <SelectContent>
-              {
-                getCurrencyList().map((currency) => (
-                  <SelectItem key={currency} value={currency}>{currency}</SelectItem>
-                ))
-              }
+              {getCurrencyList().map((currency) => (
+                <SelectItem key={currency} value={currency}>
+                  {currency}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -219,20 +230,20 @@ export function DataTable<TData>({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <a target="_blank" href="https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=add-model-price.yaml&title=Add+model+price">
+                <a
+                  target="_blank"
+                  href="https://github.com/isaced/llm-price/issues/new?assignees=&labels=&projects=&template=add-model-price.yaml&title=Add+model+price"
+                >
                   <Button>
                     <Plus className="h-4 w-4" />
                   </Button>
                 </a>
               </TooltipTrigger>
               <TooltipContent>
-                <p>
-                  {i18n.ADD_MODEL_PRICE_TIPS}
-                </p>
+                <p>{i18n.ADD_MODEL_PRICE_TIPS}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-
         </div>
       </div>
 
@@ -244,14 +255,9 @@ export function DataTable<TData>({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -259,14 +265,9 @@ export function DataTable<TData>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
@@ -281,5 +282,5 @@ export function DataTable<TData>({
         </Table>
       </div>
     </div>
-  )
+  );
 }
